@@ -63,7 +63,7 @@ print("\nExtracting frames from video files in train set...\n")
 for idx in tqdm(range(len(train_df))):
     video = os.path.join(videos_path, train_df.iloc[idx]["path"])
     frames_array = os.path.join(frames_path, video.split('/')[-1].split('.avi')[0])
-    SaveVideoFrames(video, frames_array, f=3, max_frames=20, resize=(224, 224))
+    SaveVideoFrames(video, frames_array, f=5, max_frames=10, resize=(224, 224))
 print("\nFrame extraction of train set complete!")
 
 train_df['path'] = train_df['path'].apply(lambda x: os.path.join(frames_path, x.split('/')[-1].split('.avi')[0]+'.npy.gz'))
