@@ -1,3 +1,4 @@
+# This file contains command line commands to access the UCF101 dataset
 sudo apt-add-repository non-free
 sudo apt update
 sudo apt install unrar
