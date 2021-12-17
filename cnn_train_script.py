@@ -1,8 +1,9 @@
+# defining the hyperparameters for experimentation
 time_frame_list = [4, 3, 2]
 dropout_list = [0.2, 0.1]
 batch_size_list = [16, 8]
 
-
+# importing libraries
 import time
 import numpy as np
 import pandas as pd
@@ -13,6 +14,7 @@ import os
 from time_history_callback import *
 from data_flow import *
 
+# class creating the entire 3D CNN Architecture Model
 def create_3d_cnn_model(time_frame, dropout, padding='same', activation='relu', input_shape=(10, 224, 224, 3)):
     
     model = tf.keras.Sequential()
@@ -53,7 +55,7 @@ def create_3d_cnn_model(time_frame, dropout, padding='same', activation='relu', 
     
     return model
 
-
+# training the model
 def train(time_frame, dropout, batch_size, logs_folder):
 
     print('Model training: ' + 'cnn_' + str(time_frame) + '_' + str(dropout) + '_' + str(batch_size))
@@ -87,7 +89,7 @@ train_path, val_path, train_label, val_label = sklearn.model_selection.train_tes
     stratify=df['label'],
     random_state=42
 )
-
+# generating logs for the 3D CNN architecture
 logs_folder = 'logs/cnn'
 os.makedirs(logs_folder, exist_ok=True)
 

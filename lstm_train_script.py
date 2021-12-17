@@ -1,8 +1,10 @@
+# defining the hyperparameters for experimentation
 layers_list = [2, 1]
 units_list = [256, 128]
 dropout_list = [0.2, 0.1]
 batch_size_list = [16, 8]
 
+# importing libraries
 import time
 import numpy as np
 import pandas as pd
@@ -13,7 +15,7 @@ import os
 from time_history_callback import *
 from data_flow import *
 
-
+# class creating the entire CNN-LSTM Architecture 
 def create_cnn_lstm_model(layers, units, dropout, input_shape=(10, 224, 224, 3)):
 
     resnet50 = tf.keras.applications.ResNet50(weights='imagenet', include_top=False, input_shape=input_shape[1:])
@@ -36,7 +38,7 @@ def create_cnn_lstm_model(layers, units, dropout, input_shape=(10, 224, 224, 3))
 
     return tf.keras.Model(inputs=[ip], outputs=[op])
 
-
+# training the model
 def train(layers, units, dropout, batch_size, logs_folder):
 
     print('Model training: ' + 'lstm_' + str(layers) + '_' + str(units) + '_' + str(dropout) + '_' + str(batch_size))
@@ -71,6 +73,7 @@ train_path, val_path, train_label, val_label = sklearn.model_selection.train_tes
     random_state=42
 )
 
+# generating logs for the CNN-LSTM architecture
 logs_folder = 'logs/lstm'
 os.makedirs(logs_folder, exist_ok=True)
 

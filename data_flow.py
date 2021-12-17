@@ -1,6 +1,10 @@
+# importing libraries
 import tensorflow as tf
 import numpy as np
 
+# Below class implements the custom data generator that 
+# flows the data from the specified .npy.gz, extracts it 
+# and passes it to the model
 class DataGenerator(tf.keras.utils.Sequence):
 
     def __init__(self, path, label, batch_size=4, shuffle=True):

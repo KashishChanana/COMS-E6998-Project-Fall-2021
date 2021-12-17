@@ -1,6 +1,10 @@
 import tensorflow as tf
 import time
 
+# The below class covers the Time History callback that has been 
+# included in all Keras Architectures to compute the
+#  time taken per epoch
+
 class TimeHistory(tf.keras.callbacks.Callback):
 
     def on_train_begin(self, logs={}):
