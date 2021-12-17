@@ -1,8 +1,10 @@
+# defining the hyperparameters for experimentation
 layers_list = [2, 1]
 units_list = [256, 128]
 dropout_list = [0.2, 0.1]
 batch_size_list = [16, 8]
 
+# importing libraries
 import time
 import numpy as np
 import pandas as pd
@@ -10,8 +12,10 @@ import gzip
 import tensorflow as tf
 import sklearn.model_selection
 import os
+from time_history_callback import *
+from data_flow import *
 
-
+# defining the feed forward network
 def ffn(dim_model, dim_feedforward, dropout):
     return tf.keras.Sequential([
         tf.keras.layers.Dense(dim_feedforward, activation=tf.keras.layers.PReLU()),
@@ -19,7 +23,7 @@ def ffn(dim_model, dim_feedforward, dropout):
         tf.keras.layers.Dense(dim_model)
     ])
 
-
+# class for the Transformer Encoder Layers
 class TransformerEncoderLayer(tf.keras.layers.Layer):
     def __init__(self, num_heads, dim_model, dim_feedforward, dropout):
         super(TransformerEncoderLayer, self).__init__()
@@ -47,7 +51,7 @@ class TransformerEncoderLayer(tf.keras.layers.Layer):
 
         return x2
 
-
+# class for positional encoding for transformers. Ref: Attention is all you need paper.
 class PositionalEncoding(tf.keras.layers.Layer):
     def __init__(self, time_features, dim_model):
         super(PositionalEncoding, self).__init__()
@@ -65,7 +69,7 @@ class PositionalEncoding(tf.keras.layers.Layer):
 
         return src_pos
 
-
+# class for tranformer-encoder 
 class TransformerEncoder(tf.keras.layers.Layer):
     def __init__(self, num_layers, time_features, num_heads, dim_model, dim_feedforward, dropout):
         super(TransformerEncoder, self).__init__()
@@ -85,56 +89,7 @@ class TransformerEncoder(tf.keras.layers.Layer):
 
         return src_pos
 
-
-class TimeHistory(tf.keras.callbacks.Callback):
-
-    def on_train_begin(self, logs={}):
-        self.times = []
-    
-    def on_epoch_begin(self, batch, logs={}):
-        self.epoch_time_start = time.time()
-    
-    def on_epoch_end(self, batch, logs={}):
-        self.times.append(time.time() - self.epoch_time_start)
-
-
-class DataGenerator(tf.keras.utils.Sequence):
-
-    def __init__(self, path, label, batch_size=4, shuffle=True):
-        self.batch_size = batch_size
-        self.indices = [i for i in range(len(path))]
-        self.shuffle = shuffle
-        self.path = path
-        self.label = label
-        self.on_epoch_end()
-
-    def __len__(self):
-        return len(self.indices) // self.batch_size
-
-    def __getitem__(self, idx):
-        idx_list = self.idx[idx * self.batch_size:(idx + 1) * self.batch_size]
-        batch = [self.indices[k] for k in idx_list]
-        X, y = self.get_data(batch)
-        return X, y
-
-    def on_epoch_end(self):
-        self.idx = np.arange(len(self.indices))
-        if self.shuffle == True:
-            np.random.shuffle(self.idx)
-
-    def get_data(self, batch):
-        X = [self.path[i] for i in batch]
-        y = [self.label[i] for i in batch]
-        X_res = []
-        y_res = []
-        for i, d in enumerate(zip(X, y)):
-            X_res.append(np.load(gzip.GzipFile(d[0], "r")))
-            y_res.append(d[1])
-        X_res = np.array(X_res).astype(np.float32)
-        y_res = np.array(y_res).astype(np.float32)
-        return X_res, y_res
-
-
+# class creating the entire CNN-Transformer Architecture by tying all the previous classes
 def create_cnn_transformer_model(layers, units, dropout, input_shape=(10, 224, 224, 3)):
 
     resnet50 = tf.keras.applications.ResNet50(weights='imagenet', include_top=False, input_shape=input_shape[1:])
@@ -156,7 +111,7 @@ def create_cnn_transformer_model(layers, units, dropout, input_shape=(10, 224, 2
 
     return tf.keras.Model(inputs=[ip], outputs=[op])
 
-
+# training the model
 def train(layers, units, dropout, batch_size, logs_folder):
 
     print('Model training: ' + 'transformer_' + str(layers) + '_' + str(units) + '_' + str(dropout) + '_' + str(batch_size))
@@ -191,6 +146,7 @@ train_path, val_path, train_label, val_label = sklearn.model_selection.train_tes
     random_state=42
 )
 
+# generating logs for the CNN-Transformer architecture
 logs_folder = 'logs/transformer'
 os.makedirs(logs_folder, exist_ok=True)
 
