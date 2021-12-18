@@ -49,13 +49,17 @@ The following files are used as utility files -
 1. data_flow.py - implementation of the custom data flow generator
 2. preprocess.py - implementation of frame extraction and frame size transformation
 3. time_history_callback.py - implementation of custom callback to calculate time taken per epoch
-4. download.sh - This file contains command line commands to access the UCF101 dataset
+4. download.sh - This file contains command line (shell) commands to access the UCF101 dataset
 
 The logs folder contains the logs obtained from the 32 models we experimented with.
 
 **Command to execute:**
 
+To run these scripts run -
 
+`python cnn_train_script.py`
+`python lstm_train_script.py`
+`python transformer_train_script.py`
 
 **Results:**
 ![Accuracy Analysis- I](https://github.com/KashishChanana/COMS-E6998-Project-Fall-2021/blob/main/assets/Accuracy-I.jpg)
