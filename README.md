@@ -47,12 +47,12 @@ Dropout = {0.1, 0.2}; Batch Size = {8, 16}; Number of layers = {1, 2}; Number of
 
 
 **Results:**
-!(https://github.com/KashishChanana/COMS-E6998-Project-Fall-2021/blob/main/assets/Accuracy%20-I.jpg)
-!(https://github.com/KashishChanana/COMS-E6998-Project-Fall-2021/blob/main/assets/Accuracy%20-II.jpg)
-!(https://github.com/KashishChanana/COMS-E6998-Project-Fall-2021/blob/main/assets/Loss%20-I.jpg)
-!(https://github.com/KashishChanana/COMS-E6998-Project-Fall-2021/blob/main/assets/Loss%20-II.jpg)
-!(https://github.com/KashishChanana/COMS-E6998-Project-Fall-2021/blob/main/assets/TTA%20-I.jpg)
-!(https://github.com/KashishChanana/COMS-E6998-Project-Fall-2021/blob/main/assets/TTA%20-I.jpg)
+![Accuracy Analysis- I](https://github.com/KashishChanana/COMS-E6998-Project-Fall-2021/blob/main/assets/Accuracy%20-I.jpg)
+![Accuracy Analysis- II](https://github.com/KashishChanana/COMS-E6998-Project-Fall-2021/blob/main/assets/Accuracy%20-II.jpg)
+![Loss Anlysis - I](https://github.com/KashishChanana/COMS-E6998-Project-Fall-2021/blob/main/assets/Loss%20-I.jpg)
+![Loss Analysis - II](https://github.com/KashishChanana/COMS-E6998-Project-Fall-2021/blob/main/assets/Loss%20-II.jpg)
+![Time To Accuracy Analysis- I](https://github.com/KashishChanana/COMS-E6998-Project-Fall-2021/blob/main/assets/TTA%20-I.jpg)
+![Time To Accuracy Analysis- II](https://github.com/KashishChanana/COMS-E6998-Project-Fall-2021/blob/main/assets/TTA%20-I.jpg)
 **Conclusion:**
 
 Through our experimental evaluations, we concluded the following:
