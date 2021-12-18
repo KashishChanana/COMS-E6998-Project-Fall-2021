@@ -48,7 +48,7 @@ Dropout = {0.1, 0.2}; Batch Size = {8, 16}; Number of layers = {1, 2}; Number of
 
 **Results:**
 
-
+!(assets/Loss-I.jpg)
 **Conclusion:**
 
 Through our experimental evaluations, we concluded the following:
